@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#173f35">
+<title>BatchPro UAE — Ready-Mix Management</title>
+<style>
+:root{--green:#17483b;--green2:#246b54;--lime:#d9efdf;--bg:#f3f6f4;--ink:#17231f;--muted:#68766f;--line:#dce5df;--white:#fff;--red:#b83b36}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+header{background:linear-gradient(120deg,#123a31,#246b54);color:white;padding:20px 18px 24px}
+.top{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:22px;font-weight:800;letter-spacing:.2px}.brand small{display:block;font-size:10px;letter-spacing:1.5px;font-weight:600;opacity:.75;margin-top:4px}
+.lang{border:1px solid #ffffff66;background:#ffffff18;color:white;padding:9px 12px;border-radius:10px}
+.wrap{max-width:1100px;margin:0 auto;padding:18px}
+.welcome{max-width:1100px;margin:20px auto 0;padding:0 18px;color:#e8f5ed}
+.welcome h1{font-size:24px;margin:0 0 5px}.welcome p{margin:0;font-size:13px;opacity:.85}
+nav{display:flex;gap:8px;overflow-x:auto;padding:0 0 14px}
+nav button{white-space:nowrap;border:1px solid var(--line);background:white;color:var(--green);padding:11px 14px;border-radius:10px;font-weight:700}
+nav button.active{background:var(--green);color:white;border-color:var(--green)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0 18px}
+.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:0 3px 12px #153b2b08}
+.metric-label{color:var(--muted);font-size:12px;font-weight:700}.metric{font-size:27px;font-weight:800;margin:8px 0 2px;color:var(--green)}.metric-sub{font-size:11px;color:var(--muted)}
+.panel{margin-bottom:16px}.panel h2{font-size:17px;margin:0 0 14px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}
+label{font-size:12px;color:var(--muted);font-weight:700}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;font-size:14px;background:#fff;color:var(--ink)}
+textarea{min-height:78px;resize:vertical}
+.btn{border:0;border-radius:9px;padding:11px 15px;background:var(--green);color:white;font-weight:700;cursor:pointer}
+.btn.secondary{background:var(--lime);color:var(--green)}.btn.danger{background:#fff0ef;color:var(--red)}.btn.small{padding:7px 10px;font-size:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+table{width:100%;border-collapse:collapse;min-width:620px}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);font-size:12px}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px;background:#f8faf8}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+.empty{text-align:center;color:var(--muted);padding:25px;font-size:13px}
+.note{font-size:12px;color:var(--muted);line-height:1.5}.pill{display:inline-block;padding:4px 8px;border-radius:20px;background:var(--lime);color:var(--green);font-size:11px;font-weight:700}
+.hidden{display:none!important}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:12px 10px 28px}
+@media(max-width:720px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.wrap{padding:13px}.welcome h1{font-size:21px}}
+@media(max-width:420px){form{grid-template-columns:1fr}.field.full{grid-column:auto}.metric{font-size:24px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><div class="brand">▰ BatchPro UAE<small>READY-MIX MANAGEMENT SYSTEM</small></div><select class="lang" id="language" aria-label="Language"><option value="en">English</option><option value="bn">বাংলা</option></select></div>
+  <div class="welcome"><h1 id="welcomeTitle">Plant overview</h1><p id="welcomeSub">A simple production and operations tracker for ready-mix teams.</p></div>
+</header>
+<main class="wrap">
+<nav aria-label="Main navigation">
+<button class="active" data-tab="dashboard">Dashboard</button><button data-tab="production">Production</button><button data-tab="trucks">Truck loading</button><button data-tab="breakdowns">Breakdowns</button><button data-tab="reports">Reports</button>
+</nav>
+<section id="dashboard">
+ <div class="cards">
+  <div class="card"><div class="metric-label">Today's production</div><div class="metric" id="todayM3">0 m³</div><div class="metric-sub">Recorded quantity</div></div>
+  <div class="card"><div class="metric-label">Production entries</div><div class="metric" id="entryCount">0</div><div class="metric-sub">Today</div></div>
+  <div class="card"><div class="metric-label">Truck loads</div><div class="metric" id="truckCount">0</div><div class="metric-sub">Today</div></div>
+  <div class="card"><div class="metric-label">Open breakdowns</div><div class="metric" id="openBreakdowns">0</div><div class="metric-sub">Not marked repaired</div></div>
+ </div>
+ <div class="panel"><div class="section-head"><h2>Recent production</h2><span class="pill">Live on this device</span></div><div id="recentTable"></div></div>
+ <p class="note">Demo/prototype version. Entries are saved in this browser on this device only. This is not yet a shared company system or a cloud database.</p>
+</section>
+<section id="production" class="hidden">
+ <div class="panel"><h2>Add production record</h2>
+ <form id="productionForm">
+  <div class="field"><label>Date</label><input type="date" name="date" required></div>
+  <div class="field"><label>Shift</label><select name="shift"><option>Day</option><option>Night</option></select></div>
+  <div class="field"><label>Concrete grade</label><select name="grade"><option>C20</option><option>C25</option><option>C30</option><option>C35</option><option>C40</option><option>C45</option><option>C50</option><option>C55</option><option>C60</option><option>C70</option><option>C80</option><option>C90</option><option>C95</option><option>Other</option></select></div>
+  <div class="field"><label>Quantity (m³)</label><input type="number" name="qty" min="0.1" step="0.1" placeholder="e.g. 8" required></div>
+  <div class="field"><label>Customer</label><input name="customer" placeholder="Customer name"></div>
+  <div class="field"><label>Project</label><input name="project" placeholder="Project/site name"></div>
+  <div class="field full"><button class="btn" type="submit">Save production record</button></div>
+ </form></div>
+ <div class="panel"><h2>Production records</h2><div id="productionTable"></div></div>
+</section>
+<section id="trucks" class="hidden">
+ <div class="panel"><h2>Add truck loading record</h2>
+ <form id="truckForm">
+  <div class="field"><label>Date</label><input type="date" name="date" required></div>
+  <div class="field"><label>Loading time</label><input type="time" name="time" required></div>
+  <div class="field"><label>Truck number</label><input name="truck" placeholder="e.g. T-154" required></div>
+  <div class="field"><label>Driver name</label><input name="driver" placeholder="Driver name"></div>
+  <div class="field"><label>Concrete grade</label><input name="grade" placeholder="e.g. C40" required></div>
+  <div class="field"><label>Quantity (m³)</label><input type="number" name="qty" min="0.1" step="0.1" required></div>
+  <div class="field"><label>Status</label><select name="status"><option>Loaded</option><option>Dispatched</option><option>Delivered</option><option>Cancelled</option></select></div>
+  <div class="field full"><button class="btn" type="submit">Save truck record</button></div>
+ </form></div>
+ <div class="panel"><h2>Truck loading records</h2><div id="truckTable"></div></div>
+</section>
+<section id="breakdowns" class="hidden">
+ <div class="panel"><h2>Report plant breakdown</h2>
+ <form id="breakdownForm">
+  <div class="field"><label>Date</label><input type="date" name="date" required></div>
+  <div class="field"><label>Plant / equipment</label><input name="plant" placeholder="e.g. ELBA / MEKA" required></div>
+  <div class="field"><label>Start time</label><input type="time" name="start" required></div>
+  <div class="field"><label>Status</label><select name="status"><option>Open</option><option>Repaired</option></select></div>
+  <div class="field full"><label>Problem description</label><textarea name="problem" placeholder="Describe the issue..." required></textarea></div>
+  <div class="field full"><button class="btn" type="submit">Save breakdown report</button></div>
+ </form></div>
+ <div class="panel"><h2>Breakdown history</h2><div id="breakdownTable"></div></div>
+</section>
+<section id="reports" class="hidden">
+ <div class="panel"><h2>Export your records</h2><p class="note">Download a CSV spreadsheet that can be opened in Excel. Export each record type separately.</p>
+ <div class="actions"><button class="btn" onclick="exportCSV('production')">Export production CSV</button><button class="btn" onclick="exportCSV('trucks')">Export truck CSV</button><button class="btn" onclick="exportCSV('breakdowns')">Export breakdown CSV</button><button class="btn danger" onclick="clearAll()">Delete all local data</button></div></div>
+</section>
+<footer>BatchPro UAE • Prototype v1.0 • Use demo data only until company security review is completed.</footer>
+</main>
+<script>
+const KEY='batchpro_uae_v1';
+let data=JSON.parse(localStorage.getItem(KEY)||'{"production":[],"trucks":[],"breakdowns":[]}');
+const $=s=>document.querySelector(s);
+const today=()=>new Date().toISOString().slice(0,10);
+document.querySelectorAll('input[type=date]').forEach(x=>x.value=today());
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function table(rows,cols,empty='No records yet. Add your first record above.'){
+ if(!rows.length)return `<div class="empty">${empty}</div>`;
+ return `<div class="table-wrap"><table><thead><tr>${cols.map(c=>`<th>${c[1]}</th>`).join('')}</tr></thead><tbody>${rows.slice().reverse().map(r=>`<tr>${cols.map(c=>`<td>${esc(r[c[0]])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function render(){
+ const p=data.production.filter(x=>x.date===today()),t=data.trucks.filter(x=>x.date===today());
+ $('#todayM3').textContent=p.reduce((s,x)=>s+Number(x.qty||0),0).toFixed(1)+' m³';
+ $('#entryCount').textContent=p.length;$('#truckCount').textContent=t.length;
+ $('#openBreakdowns').textContent=data.breakdowns.filter(x=>x.status==='Open').length;
+ $('#recentTable').innerHTML=table(data.production.slice(-6),[['date','Date'],['grade','Grade'],['qty','m³'],['customer','Customer']]);
+ $('#productionTable').innerHTML=table(data.production,[['date','Date'],['shift','Shift'],['grade','Grade'],['qty','m³'],['customer','Customer'],['project','Project']]);
+ $('#truckTable').innerHTML=table(data.trucks,[['date','Date'],['time','Time'],['truck','Truck'],['driver','Driver'],['grade','Grade'],['qty','m³'],['status','Status']]);
+ $('#breakdownTable').innerHTML=table(data.breakdowns,[['date','Date'],['plant','Plant'],['start','Start'],['problem','Problem'],['status','Status']]);
+}
+function formData(form){return Object.fromEntries(new FormData(form).entries())}
+$('#productionForm').addEventListener('submit',e=>{e.preventDefault();data.production.push(formData(e.target));e.target.reset();e.target.querySelector('[name=date]').value=today();save();alert('Production record saved on this device.')});
+$('#truckForm').addEventListener('submit',e=>{e.preventDefault();data.trucks.push(formData(e.target));e.target.reset();e.target.querySelector('[name=date]').value=today();save();alert('Truck record saved on this device.')});
+$('#breakdownForm').addEventListener('submit',e=>{e.preventDefault();data.breakdowns.push(formData(e.target));e.target.reset();e.target.querySelector('[name=date]').value=today();save();alert('Breakdown report saved on this device.')});
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('main section').forEach(s=>s.classList.toggle('hidden',s.id!==b.dataset.tab))}));
+window.exportCSV=function(type){const rows=data[type];if(!rows.length){alert('No records to export yet.');return}const keys=Object.keys(rows[0]);const csv=[keys.join(','),...rows.map(r=>keys.map(k=>'"'+String(r[k]??'').replace(/"/g,'""')+'"').join(','))].join('\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='batchpro-'+type+'-'+today()+'.csv';a.click();URL.revokeObjectURL(a.href)};
+window.clearAll=function(){if(confirm('Delete all BatchPro records saved in this browser? This cannot be undone.')){data={production:[],trucks:[],breakdowns:[]};save()}};
+$('#language').addEventListener('change',e=>{if(e.target.value==='bn'){ $('#welcomeTitle').textContent='প্ল্যান্টের সারসংক্ষেপ';$('#welcomeSub').textContent='রেডি-মিক্স উৎপাদন ও অপারেশন রেকর্ড রাখার সহজ অ্যাপ।'}else{$('#welcomeTitle').textContent='Plant overview';$('#welcomeSub').textContent='A simple production and operations tracker for ready-mix teams.'}});
+render();
+</script>
+</body>
+</html>
